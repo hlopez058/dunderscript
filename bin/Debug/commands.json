@@ -1,0 +1,13 @@
+﻿[
+	{
+	 "Name":"TestCmd",
+	 "Description":"dummy command does nothing",
+	 "CommandLine":["do this","do that"]
+	},
+	{
+	 "Name":"SearchMore",
+	 "Description":"Searches for objects 2 levels in",
+	 "CommandLine":["search | search *"]
+	}
+	
+]

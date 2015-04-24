@@ -1,0 +1,9 @@
+﻿Dunderscript Commands
+
+
+Internal Commands :
+1. Enter - used to enter into an object
+2. Exit - used to exit an object
+3. Search - lists all elements within current object
+4. Create - creates a new object within current object
+5. Delete - removes a selected object from current object

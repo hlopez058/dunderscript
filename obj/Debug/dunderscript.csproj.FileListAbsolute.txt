@@ -1,0 +1,10 @@
+C:\Users\hlopez058\Desktop\DND Stuff\DNDEngineV1\DNDEngineV4\ravenginecnsl\ravenginecnsl\bin\Debug\dunderscript.exe.config
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\dunderscript.exe.config
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\help.txt
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\commands.json
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\dunderscript.exe
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\dunderscript.pdb
+C:\Users\hlopez058\Documents\GitHub\dunderscript\bin\Debug\Newtonsoft.Json.xml
+C:\Users\hlopez058\Documents\GitHub\dunderscript\obj\Debug\dunderscript.csprojResolveAssemblyReference.cache
+C:\Users\hlopez058\Documents\GitHub\dunderscript\obj\Debug\dunderscript.exe
+C:\Users\hlopez058\Documents\GitHub\dunderscript\obj\Debug\dunderscript.pdb
