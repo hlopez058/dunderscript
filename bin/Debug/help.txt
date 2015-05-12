@@ -1,9 +1,20 @@
-﻿Dunderscript Commands
+﻿Dunderscript
+============
+Readme Version 1.0
+May 9 2015
 
+Description
+----------
 
-Internal Commands :
-1. Enter - used to enter into an object
-2. Exit - used to exit an object
-3. Search - lists all elements within current object
-4. Create - creates a new object within current object
-5. Delete - removes a selected object from current object
+Dunder scripting allows for an object oriented tree structure to be created within a command line console. Also a flexible way to store "object" classes for
+describing and calculating models. 
+
+Native Commands:
+The dunderscripting has native commands. The native commands allow for tree navigation and low level  cut/copy and search functions.
+Native commands can be grouped together in order to build more extensive commands. Such as multiple navigation , cut/copy, and search manipulations. 
+The special native commands can also allow for use of math functions. By importing native libraries more native commands can be called upon. 
+
+Custom Commands:
+Custom commands allow for the users to build inline combinations of the native commands. The custom commands can be stored to the custom command list
+the more commands in the list the more functionality the system can have. Custom commands are usually "macros" that string together multiple native commands. 
+
