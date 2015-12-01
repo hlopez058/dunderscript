@@ -40,7 +40,6 @@
                     
                     var output = "";
 
-                    //Check if the command is a custom command
                     bool iscust;
                     try
                     {Commands.CustomCommands.Exists(x => x.Name == stdin.command);
@@ -51,12 +50,16 @@
                     if(iscust)
                     {
                         CustomCommands(ref path, stdin, ref nlist, ref output);
+                    
+
                     }
                     else
                     // Native Command
                     {
                         NativeCommands(ref path, stdin, ref nlist, ref output);
+                        
                     }
+                    
                     
                     //write the command output
                     Console.WriteLine(output);
@@ -71,54 +74,32 @@
                 output = "Not implemented";
             }
 
-
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="path">current node command was called in</param>
-            /// <param name="stdin">input text</param>
-            /// <param name="nlist">current node linked/list instance</param>
-            /// <param name="output">output text</param>
             private static void NativeCommands(ref string path,stdInput stdin,ref List<Node> nlist, ref string output)
             {
-                
                 //dosomehting with input
                 switch (stdin.command)
                 {
-                    case "system.load":
-                        path = Commands.Load(path, stdin.args[0], ref nlist, ref output);
-                        break;
-                    case "system.save":
-                        path = Commands.Save(path, stdin.args[0], ref nlist, ref output);
-                        break;
-                    case "system.clear":
+                    case "clear":
                         Console.Clear();
                         break;
-                    case "system.create":
+                    case "create":
                         path = Commands.Create(path, stdin.args[0], ref nlist, ref output);
                         break;
-                    case "system.copy":
-                        path = Commands.Copy(path, stdin.args[0], ref nlist, ref output);
-                        break;
-                    case "system.paste":
-                        path = Commands.Paste(path, stdin.args[0], ref nlist, ref output);
-                        break;
-                    case "system.enter":
+                    case "enter":
                         path = Commands.Enter(path, stdin.args[0], nlist, ref output);
                         break;
-                    case "system.exit":
+                    case "exit":
                         path = Commands.Exit(path, stdin.args[0], ref output);
                         break;
-                    case "system.search":
+                    case "search":
                         Commands.Search(path, stdin.args[0], nlist, ref output);
                         break;
-                    case "system.delete":
+                    case "delete":
                         Commands.Delete(path, stdin.args[0], nlist, ref output);
                         break;
                     case "?":
                         Commands.Help(path, stdin.args[0], nlist);
-                        //Commands.LoadCustomCommands();
+                        Commands.LoadCustomCommands();
                         break;
                     default:
                         Console.WriteLine("Unrecognized command.");
