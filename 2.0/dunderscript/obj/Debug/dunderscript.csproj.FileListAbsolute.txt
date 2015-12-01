@@ -6,3 +6,11 @@ C:\Users\hlopez058\Documents\GitHub\dunderscript\rev2\dunderscript\dunderscript\
 C:\Users\hlopez058\Documents\GitHub\dunderscript\rev2\dunderscript\dunderscript\obj\Debug\dunderscript.csprojResolveAssemblyReference.cache
 C:\Users\hlopez058\Documents\GitHub\dunderscript\rev2\dunderscript\dunderscript\obj\Debug\dunderscript.exe
 C:\Users\hlopez058\Documents\GitHub\dunderscript\rev2\dunderscript\dunderscript\obj\Debug\dunderscript.pdb
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\bin\Debug\dunderscript.exe.config
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\obj\Debug\dunderscript.exe
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\obj\Debug\dunderscript.pdb
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\bin\Debug\dunderscript.exe
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\bin\Debug\dunderscript.pdb
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\bin\Debug\Newtonsoft.Json.xml
+C:\Users\hlopez058\Documents\GitHub\dunderscript\2.0\dunderscript\obj\Debug\dunderscript.csprojResolveAssemblyReference.cache

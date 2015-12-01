@@ -69,7 +69,7 @@ namespace dunderscript
                     //cmd = input.Split(' ')[0];
                     //arg = input.Split(' ')[1];
                 }
-                catch
+                catch(Exception ex)
                 {
                     //commands with no args
                     cmd = input;
@@ -81,7 +81,7 @@ namespace dunderscript
                     //    cmd=set;
                     //    arg = input;
                     //}
-
+        
                 }
                 
 
