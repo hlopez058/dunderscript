@@ -1,87 +1,109 @@
-﻿<Window
+﻿<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:dunderscript" mc:Ignorable="d" x:Name="frmMain" x:Class="dunderscript.MainWindow"
-        Title="DunderScript 3.0" d:DesignWidth="804" Loaded="frmMain_Loaded">
+        Title="DunderScript 3.0" d:DesignWidth="804" Loaded="frmMain_Loaded" xmlns:rabbit="clr-namespace:Rabbit.Controls;assembly=Rabbit.Controls">
 
 
 
-    <Grid>
-        <DockPanel Margin="0" >
-            <TreeView x:Name="FileTree" Margin="0">
-                <TreeViewItem Header="Story Boards" IsExpanded="True">
-                    <TreeViewItem Header="Default" HorizontalAlignment="Left" Width="182" IsExpanded="True"/>
-                </TreeViewItem>
-                <TreeViewItem x:Name="tvItemObjLib" Header="Object Library" IsExpanded="True">
 
-                </TreeViewItem>
-            </TreeView>
+    <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="63*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <StackPanel Margin="0" DockPanel.Dock="Right">
-                <Label Content="Private" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <ListView x:Name="PrivateSpace" Margin="0">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Label Content="Public" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <ListView x:Name="PublicSpace" Margin="0">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="Map"/>
-                <Grid x:Name="Map" ShowGridLines="True" Background="#FFEEE8E8" UseLayoutRounding="True" HorizontalAlignment="Left" Width="205" Height="195" VerticalAlignment="Bottom" Margin="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition x:Name="x1" Tag="1"/>
-                        <RowDefinition x:Name="x2" Tag="2"/>
-                        <RowDefinition x:Name="x3" Tag="3"/>
-                        <RowDefinition x:Name="x4" Tag="4"/>
-                        <RowDefinition x:Name="x5" Tag="5" Height="26"/>
-                        <RowDefinition x:Name="x6" Tag="6"/>
-                        <RowDefinition x:Name="x7" Tag="7"/>
-                        <RowDefinition x:Name="x8" Tag="8"/>
-                        <RowDefinition x:Name="x9" Tag="9"/>
-                        <RowDefinition x:Name="x10" Tag="10"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition x:Name="y1" Tag="A"/>
-                        <ColumnDefinition x:Name="y2" Tag="B"/>
-                        <ColumnDefinition x:Name="y3" Tag="C"/>
-                        <ColumnDefinition x:Name="y4" Tag="D"/>
-                        <ColumnDefinition x:Name="y5" Tag="E"/>
-                        <ColumnDefinition x:Name="y6" Tag="F"/>
-                        <ColumnDefinition x:Name="y7" Tag="G"/>
-                        <ColumnDefinition x:Name="y8" Tag="G"/>
-                        <ColumnDefinition x:Name="y9" Tag="I"/>
-                        <ColumnDefinition x:Name="y10" Tag="J"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </StackPanel>
-            <TabControl x:Name="tabDocuments">
-                <TabItem Header="Story Board">
-                    <RichTextBox x:Name="rtfStoryBoard" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <GridSplitter VerticalAlignment="Stretch" HorizontalAlignment="Right" Grid.Column="0" Width="5" Background="Gray"/>
+        <TreeView x:Name="FileTree" Width="Auto" Margin="0,0,5,0" Grid.Column="0" VerticalAlignment="Stretch">
+            <TreeViewItem Header="Story Boards" IsExpanded="True">
+                <TreeViewItem Header="Default" HorizontalAlignment="Left" Width="Auto" IsExpanded="True"/>
+            </TreeViewItem>
+            <TreeViewItem x:Name="tvItemObjLib" Header="Object Library" IsExpanded="True"/>
+        </TreeView>
+
+        <GridSplitter VerticalAlignment="Stretch" HorizontalAlignment="Right" Grid.Column="1"  Width="5" Background="white"/>
+
+
+        <TabControl x:Name="tabDocuments" Margin="0,0,5,0" Grid.Column="1"  VerticalAlignment="Stretch" Height="auto">
+            <TabItem x:Name="tabStory" Header="Story Board">
+                <Grid>
+                    <rabbit:RichTextBoxEx x:Name="rtfStoryBoard" 
+                             HorizontalContentAlignment="Stretch" 
+                             VerticalContentAlignment="Stretch"
+                           AutoAddWhiteSpaceAfterTriggered="{Binding IsChecked,ElementName=chkAutoAddWhitespace}" 
+                           ContentAssistTriggers="{Binding ContentAssistTriggers}"
+                           ContentAssistSource="{Binding ContentAssistSource}" >
                         <FlowDocument>
                             <Paragraph>
                                 <Run Text="StoryBoard"/>
                             </Paragraph>
                         </FlowDocument>
-                    </RichTextBox>
-                </TabItem>
-                <TabItem Header="Editor">
-                    <RichTextBox x:Name="rtfEditor">
-                        <FlowDocument>
-                            <Paragraph>
-                                <Run Text="RichTextBox"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-                </TabItem>
-            </TabControl>
-        </DockPanel>
+                    </rabbit:RichTextBoxEx>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabEditor" Header="Editor" Margin="0,0,0,0">
+                <RichTextBox x:Name="rtfEditor">
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text="RichTextBox"/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Margin="0,0,0,0" Grid.Column="2" Width="Auto" VerticalAlignment="Stretch">
+            <Label Content="Private" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ListView x:Name="PrivateSpace" Margin="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+                <ListBoxItem/>
+                <ListBoxItem/>
+                <ListBoxItem/>
+            </ListView>
+            <Label Content="Public" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ListView x:Name="PublicSpace" Margin="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+                <ListBoxItem Content="test"/>
+            </ListView>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="Map"/>
+            <Grid x:Name="Map" ShowGridLines="True" Background="#FFEEE8E8" UseLayoutRounding="True" HorizontalAlignment="Center" Width="205" Height="195" VerticalAlignment="Bottom" Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="x1" Tag="1"/>
+                    <RowDefinition x:Name="x2" Tag="2"/>
+                    <RowDefinition x:Name="x3" Tag="3"/>
+                    <RowDefinition x:Name="x4" Tag="4"/>
+                    <RowDefinition x:Name="x5" Tag="5" Height="26"/>
+                    <RowDefinition x:Name="x6" Tag="6"/>
+                    <RowDefinition x:Name="x7" Tag="7"/>
+                    <RowDefinition x:Name="x8" Tag="8"/>
+                    <RowDefinition x:Name="x9" Tag="9"/>
+                    <RowDefinition x:Name="x10" Tag="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="y1" Tag="A"/>
+                    <ColumnDefinition x:Name="y2" Tag="B"/>
+                    <ColumnDefinition x:Name="y3" Tag="C"/>
+                    <ColumnDefinition x:Name="y4" Tag="D"/>
+                    <ColumnDefinition x:Name="y5" Tag="E"/>
+                    <ColumnDefinition x:Name="y6" Tag="F"/>
+                    <ColumnDefinition x:Name="y7" Tag="G"/>
+                    <ColumnDefinition x:Name="y8" Tag="G"/>
+                    <ColumnDefinition x:Name="y9" Tag="I"/>
+                    <ColumnDefinition x:Name="y10" Tag="J"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

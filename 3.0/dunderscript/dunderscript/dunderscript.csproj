@@ -67,6 +67,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="dunderscript.FileIO.cs" />
+    <Compile Include="dunderscript.LiveDoc.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -102,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rabbit.Controls\Rabbit.Controls.csproj">
+      <Project>{2f9aa314-ac84-438c-86b9-794fe4d16f83}</Project>
+      <Name>Rabbit.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
