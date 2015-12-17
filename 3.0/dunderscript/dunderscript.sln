@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dunderscript", "dunderscript\dunderscript.csproj", "{34CD0043-315F-4080-BCB9-36E9B0CF8FC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Controls", "Rabbit.Controls\Rabbit.Controls.csproj", "{2F9AA314-AC84-438C-86B9-794FE4D16F83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryBoard.Controls", "Rabbit.Controls\StoryBoard.Controls.csproj", "{2F9AA314-AC84-438C-86B9-794FE4D16F83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

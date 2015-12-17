@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Rabbit.Controls;
+using StoryBoard.Controls;
 
 namespace dunderscript
 {
@@ -24,16 +24,15 @@ namespace dunderscript
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region declarations
         public List<String> ContentAssistSource
         {
             get { return (List<String>)GetValue(ContentAssistSourceProperty); }
             set { SetValue(ContentAssistSourceProperty, value); }
         }
-
         // Using a DependencyProperty as the backing store for ContentAssisteSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContentAssistSourceProperty =
             DependencyProperty.Register("ContentAssistSource", typeof(List<String>), typeof(MainWindow), new UIPropertyMetadata(new List<string>()));
-
 
         public List<char> ContentAssistTriggers
         {
@@ -45,12 +44,58 @@ namespace dunderscript
         public static readonly DependencyProperty ContentAssistTriggersProperty =
             DependencyProperty.Register("ContentAssistTriggers", typeof(List<char>), typeof(MainWindow), new UIPropertyMetadata(new List<char>()));
 
+       
+        public List<String> ContentPublicSource
+        {
+            get { return (List<String>)GetValue(ContentPublicSourceProperty); }
+            set { SetValue(ContentPublicSourceProperty, value); }
+        }
+         // Using a DependencyProperty as the backing store for ContentPublicSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentPublicSourceProperty =
+            DependencyProperty.Register("ContentPublicSource", typeof(List<String>), typeof(MainWindow), new UIPropertyMetadata(new List<string>()));
+
+        
+        public List<String> ContentPrivateSource
+        {
+            get { return (List<String>)GetValue(ContentPrivateSourceProperty); }
+            set { SetValue(ContentPrivateSourceProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for ContentPrivateSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentPrivateSourceProperty =
+            DependencyProperty.Register("ContentPrivateSource", typeof(List<String>), typeof(MainWindow), new UIPropertyMetadata(new List<string>()));
+
+        public List<char> ContentScriptTriggers
+        {
+            get { return (List<char>)GetValue(ContentScriptTriggersProperty); }
+            set { SetValue(ContentScriptTriggersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ContentscriptTriggers.
+        public static readonly DependencyProperty ContentScriptTriggersProperty =
+            DependencyProperty.Register("ContentScriptTriggers", typeof(List<char>), typeof(MainWindow), new UIPropertyMetadata(new List<char>()));
+
+        public List<char> ContentScriptTerminators
+        {
+            get { return (List<char>)GetValue(ContentScriptTerminatorsProperty); }
+            set { SetValue(ContentScriptTerminatorsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ContentscriptTerminators.
+        public static readonly DependencyProperty ContentScriptTerminatorsProperty =
+            DependencyProperty.Register("ContentScriptTerminators", typeof(List<char>), typeof(MainWindow), new UIPropertyMetadata(new List<char>()));
+
+
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
+
+            ContentScriptTriggers = LiveDoc.InitRichTextBoxScriptingTrigger();
+            ContentScriptTerminators = LiveDoc.InitRichTextBoxScriptingTerminators();
             ContentAssistTriggers = LiveDoc.InitRichTextBoxIntellisenseTrigger();
             ContentAssistSource = LiveDoc.InitRichTextBoxSource();
+            
             DataContext = this;
         }
 
@@ -59,8 +104,12 @@ namespace dunderscript
             //begin initialization routine
             LoadItemsToTree();
             
+            //TODO: handlers to add new public/private content when added to lists
         }
 
+      
+
+        #region controller
         private void LoadItemsToTree()
         {
             var n = new ObjectLibrary();
@@ -80,29 +129,24 @@ namespace dunderscript
 
         }
 
+        #endregion
+
+
+
+        #region event handlers
+
         void item_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var tvItem = (TreeViewItem)sender;
             var file = (scriptFile)tvItem.Tag;
-            OpenFileForEditing(file);
+            LiveDoc.OpenFileForEditing(file,ref rtfEditor,ref tabDocuments);
         }
+        #endregion
 
-        private void OpenFileForEditing(scriptFile file)
-        {
-            //create a new tab window
-            var tab =  new TabItem();
-            //add a rich text box
-            var rtf = new System.Windows.Forms.RichTextBox();
-            var data = System.IO.File.ReadAllText(file.path);
-            TextRange txt = new TextRange(rtfEditor.Document.ContentStart, rtfEditor.Document.ContentEnd);
-            txt.Text = "";
-            txt.Text = data;
-            //bring editor to foreground
-            var ctab = tabDocuments.Items.GetItemAt(1);
-            tabDocuments.SelectedItem = ctab;
-        }
+        
 
-   
+
+
     }
 
 }

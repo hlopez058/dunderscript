@@ -8,8 +8,8 @@
     <ProjectGuid>{2F9AA314-AC84-438C-86B9-794FE4D16F83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rabbit.Controls</RootNamespace>
-    <AssemblyName>Rabbit.Controls</AssemblyName>
+    <RootNamespace>StoryBoard.Controls</RootNamespace>
+    <AssemblyName>StoryBoard.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

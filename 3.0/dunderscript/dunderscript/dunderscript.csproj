@@ -66,7 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="dunderscript.FileIO.cs" />
+    <Compile Include="dunderscript.Lib.cs" />
     <Compile Include="dunderscript.LiveDoc.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -105,9 +105,9 @@
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rabbit.Controls\Rabbit.Controls.csproj">
+    <ProjectReference Include="..\Rabbit.Controls\StoryBoard.Controls.csproj">
       <Project>{2f9aa314-ac84-438c-86b9-794fe4d16f83}</Project>
-      <Name>Rabbit.Controls</Name>
+      <Name>StoryBoard.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

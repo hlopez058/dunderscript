@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace dunderscript
 {
+   public class Lib { }
 
-    public class ObjectLibrary 
+   public class ObjectLibrary 
     {
         public readonly ICollection<scriptFile> _ScriptFiles = new ObservableCollection<scriptFile>();
 
@@ -46,17 +47,17 @@ namespace dunderscript
          
     }
    public class scriptFile
-            {
-                string _name;
-                public string name { get { return _name; } set { _name = value; } }
+    {
+        string _name;
+        public string name { get { return _name; } set { _name = value; } }
 
-                string _path;
-                public string path { get { return _path; } set { _path = value; } }
+        string _path;
+        public string path { get { return _path; } set { _path = value; } }
 
-                public scriptFile(string path,string name)
-                {
-                    this._name = name;
-                    this._path = path;
-                }
-            }
+        public scriptFile(string path,string name)
+        {
+            this._name = name;
+            this._path = path;
+        }
+    }
 }
