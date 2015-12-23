@@ -66,8 +66,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="dunderscript.Lib.cs" />
-    <Compile Include="dunderscript.LiveDoc.cs" />
+    <Compile Include="FileManager.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

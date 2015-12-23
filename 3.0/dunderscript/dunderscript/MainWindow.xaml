@@ -19,10 +19,8 @@
 
         <GridSplitter VerticalAlignment="Stretch" HorizontalAlignment="Right" Grid.Column="0" Width="5" Background="Gray"/>
         <TreeView x:Name="FileTree" Width="Auto" Margin="0,0,5,0" Grid.Column="0" VerticalAlignment="Stretch">
-            <TreeViewItem Header="Story Boards" IsExpanded="True">
-                <TreeViewItem Header="Default" HorizontalAlignment="Left" Width="Auto" IsExpanded="True"/>
-            </TreeViewItem>
-            <TreeViewItem x:Name="tvItemObjLib" Header="Object Library" IsExpanded="True"/>
+            <TreeViewItem x:Name="tvItemStryBd" Header="Story Boards" IsExpanded="True"/>
+            <TreeViewItem x:Name="tvItemObjLib" Header="Library" IsExpanded="True"/>
         </TreeView>
 
         <GridSplitter VerticalAlignment="Stretch" HorizontalAlignment="Right" Grid.Column="1"  Width="5" Background="white"/>
@@ -31,23 +29,45 @@
         <TabControl x:Name="tabDocuments" Margin="0,0,5,0" Grid.Column="1"  VerticalAlignment="Stretch" Height="auto">
             <TabItem x:Name="tabStory" Header="Story Board">
                 <Grid>
-                    <storyboard:RichTextBoxEx x:Name="rtfStoryBoard" 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+
+                  
+                    <RichTextBox x:Name="rtfStoryBoard"  Grid.Row="0" VerticalAlignment="Stretch" 
                              HorizontalContentAlignment="Stretch" 
-                             VerticalContentAlignment="Stretch"
-                           AutoAddWhiteSpaceAfterTriggered="{Binding IsChecked,ElementName=chkAutoAddWhitespace}" 
-                           ContentAssistTriggers="{Binding ContentAssistTriggers}"
-                           ContentScriptTerminators="{Binding ContentScriptTerminators}"
-                                              ContentScriptTriggers="{Binding ContentScriptTriggers}"
-                           ContentAssistSource="{Binding ContentAssistSource}"
-                            ContentPrivateSource="{Binding ContentPrivateSource}"
-                            ContentPublicSource="{Binding ContentPublicSource}">
+                             VerticalContentAlignment="Stretch" Margin="0,0,0,5">
                         <FlowDocument>
                             <Paragraph>
-                                <Run Text="StoryBoard"/>
+                                <Run Text="Story Board"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                  
+
+                    <GridSplitter Grid.Row="0" VerticalAlignment="Bottom"  Height="5" Background="white" Margin="0,0,0,0" HorizontalAlignment="Stretch"/>
+                    <Grid Grid.Row="1" VerticalAlignment="Stretch" >
+                    <storyboard:RichTextBoxEx x:Name="rtfScriptBox" VerticalAlignment="Stretch" 
+                    	HorizontalContentAlignment="Stretch" 
+                    	VerticalContentAlignment="Stretch"
+                    	AutoAddWhiteSpaceAfterTriggered="{Binding IsChecked, ElementName=chkAutoAddWhitespace}" 
+                    	ContentAssistTriggers="{Binding ContentAssistTriggers}"
+                    	ContentScriptTerminators="{Binding ContentScriptTerminators}"
+                    	ContentScriptTriggers="{Binding ContentScriptTriggers}"
+                    	ContentAssistSource="{Binding ContentAssistSource}"
+                    	ContentPrivateSource="{Binding ContentPrivateSource}" Margin="0,5,0,0">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Run Text="ScriptBox"/>
                             </Paragraph>
                         </FlowDocument>
                     </storyboard:RichTextBoxEx>
+                    </Grid>
                 </Grid>
+
+
+
             </TabItem>
             <TabItem x:Name="tabEditor" Header="Editor" Margin="0,0,0,0">
                 <RichTextBox x:Name="rtfEditor">
@@ -61,26 +81,6 @@
         </TabControl>
 
         <StackPanel Margin="0,0,0,0" Grid.Column="2" Width="Auto" VerticalAlignment="Stretch">
-            <Label Content="Private" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ListView x:Name="PrivateSpace" Margin="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-                <ListBoxItem/>
-                <ListBoxItem/>
-                <ListBoxItem/>
-            </ListView>
-            <Label Content="Public" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ListView x:Name="PublicSpace" Margin="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-                <ListBoxItem Content="test"/>
-            </ListView>
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="Map"/>
             <Grid x:Name="Map" ShowGridLines="True" Background="#FFEEE8E8" UseLayoutRounding="True" HorizontalAlignment="Center" Width="205" Height="195" VerticalAlignment="Bottom" Margin="0">
                 <Grid.RowDefinitions>

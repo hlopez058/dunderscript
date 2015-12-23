@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -10,6 +11,16 @@ namespace StoryBoard.Controls
 {
     public class RichTextBoxEx : RichTextBox
     {
+        #region declarations 
+      
+        public class jsObject
+        {
+            public string name { get; set; }
+            public string trigger { get; set; }
+            public string json { get; set; }
+        }
+
+        #region AutoAddWhiteSpace
         public bool AutoAddWhiteSpaceAfterTriggered
         {
             get { return (bool)GetValue(AutoAddWhiteSpaceAfterTriggeredProperty); }
@@ -20,26 +31,18 @@ namespace StoryBoard.Controls
         public static readonly DependencyProperty AutoAddWhiteSpaceAfterTriggeredProperty =
             DependencyProperty.Register("AutoAddWhiteSpaceAfterTriggered", typeof(bool), typeof(RichTextBoxEx), new UIPropertyMetadata(true));
 
-        public IList<String> ContentAssistSource
+      
+        #endregion
+
+
+    public List<String> ContentAssistSource
         {
-            get { return (IList<String>)GetValue(ContentAssistSourceProperty); }
+            get { return (List<String>)GetValue(ContentAssistSourceProperty); }
             set { SetValue(ContentAssistSourceProperty, value); }
         }
-
         // Using a DependencyProperty as the backing store for ContentAssistSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContentAssistSourceProperty =
-            DependencyProperty.Register("ContentAssistSource", typeof(IList<String>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<string>()));
-
-
-        public IList<String> ContentPublicSource
-        {
-            get { return (IList<String>)GetValue(ContentPublicSourceProperty); }
-            set { SetValue(ContentPublicSourceProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ContentPublicSource.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ContentPublicSourceProperty =
-            DependencyProperty.Register("ContentPublicSource", typeof(IList<String>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<string>()));
+            DependencyProperty.Register("ContentAssistSource", typeof(List<String>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<string>()));
 
         public IList<String> ContentPrivateSource
         {
@@ -51,17 +54,15 @@ namespace StoryBoard.Controls
         public static readonly DependencyProperty ContentPrivateSourceProperty =
             DependencyProperty.Register("ContentPrivateSource", typeof(IList<String>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<string>()));
 
-
-
-        public IList<char> ContentAssistTriggers
+        public IList<jsObject> ContentAssistTriggers
         {
-            get { return (IList<char>)GetValue(ContentAssistTriggersProperty); }
+            get { return (IList<jsObject>)GetValue(ContentAssistTriggersProperty); }
             set { SetValue(ContentAssistTriggersProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ContentAssistSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContentAssistTriggersProperty =
-            DependencyProperty.Register("ContentAssistTriggers", typeof(IList<char>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<char>()));
+            DependencyProperty.Register("ContentAssistTriggers", typeof(IList<jsObject>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<jsObject>()));
 
         public IList<char> ContentScriptTriggers
         {
@@ -79,11 +80,10 @@ namespace StoryBoard.Controls
             set { SetValue(ContentScriptTerminatorsProperty, value); }
         }
 
-
         // Using a DependencyProperty as the backing store for ContentscriptTriggers.
         public static readonly DependencyProperty ContentScriptTerminatorsProperty =
            DependencyProperty.Register("ContentScriptTerminators", typeof(IList<char>), typeof(RichTextBoxEx), new UIPropertyMetadata(new List<char>()));
-
+        #endregion
 
         #region constructure
         public RichTextBoxEx()
@@ -100,10 +100,7 @@ namespace StoryBoard.Controls
                 throw new Exception("this control must be put in Grid control");
             }
 
-            if (ContentAssistTriggers.Count == 0)
-            {
-                ContentAssistTriggers.Add('@');
-            }
+          
 
             (this.Parent as Grid).Children.Add(AssistListBox);
             AssistListBox.MaxHeight = 100;
@@ -195,8 +192,6 @@ namespace StoryBoard.Controls
 
         #region Content Assist
         public bool IsScripting = false;
-        private TextPointer startScriptLoc;
-        private TextPointer endScriptLoc;
         private bool IsAssistKeyPressed = false;
 
         private System.Text.StringBuilder sbLastWords = new System.Text.StringBuilder();
@@ -204,6 +199,11 @@ namespace StoryBoard.Controls
 
         protected override void OnPreviewKeyDown(System.Windows.Input.KeyEventArgs e)
         {
+            if (e.Key == Key.Space || e.Key == Key.Back)
+            {
+                typedBag = "";
+            }
+
             if (!IsAssistKeyPressed)
             {
                 base.OnPreviewKeyDown(e);
@@ -217,6 +217,7 @@ namespace StoryBoard.Controls
                 if (sbLastWords.Length > 0)
                 {
                     sbLastWords.Remove(sbLastWords.Length - 1, 1);
+                    
                     FilterAssistBoxItemsSource();
                 }
                 else
@@ -242,11 +243,26 @@ namespace StoryBoard.Controls
                 AssistListBox.Focus();
             }
 
+           
+
             base.OnPreviewKeyDown(e);
+        }
+
+        private void ReloadAssistBoxItemsSource(string _typedBag)
+        {
+
+           var obj =  ContentAssistTriggers.FirstOrDefault(x => x.trigger == _typedBag);
+           dynamic json = JObject.Parse(obj.json);
+           
+            foreach( var attr in json){
+                var prop = Convert.ToString(attr).Split(':')[0].Replace("\"","").Trim();
+                ContentAssistSource.Add(prop);
+            }
         }
 
         private void FilterAssistBoxItemsSource()
         {
+            ReloadAssistBoxItemsSource(typedBag);
             IEnumerable<string> temp = ContentAssistSource.Where(s => s.ToUpper().StartsWith(sbLastWords.ToString().ToUpper()));
             AssistListBox.ItemsSource = temp;
             AssistListBox.SelectedIndex = 0;
@@ -260,45 +276,26 @@ namespace StoryBoard.Controls
             }
         }
 
+        private string typedBag = "";
+
         protected override void OnTextInput(System.Windows.Input.TextCompositionEventArgs e)
         {
             base.OnTextInput(e);
 
-            if (IsScripting == false && e.Text.Length == 1)
-            {
-                //check if the scripting start key has been pressed
-                if (ContentScriptTriggers.Contains(char.Parse(e.Text)))
-                {
-                    //begin script capture
-                    IsScripting = true;
-                    startScriptLoc = this.CaretPosition;
-                    return;
-                }
-            }
-
-
-            if (IsScripting)
-            {
-                //check if the scripting stop key has been pressed
-                if (ContentScriptTerminators.Contains(char.Parse(e.Text)))
-                {
-                    //end script capture
-                    IsScripting = false;
-                    //run interpreter
-                    endScriptLoc = this.CaretPosition;
-                    //TODO: search script
-                    return;
-                }
-
                 if (IsAssistKeyPressed == false && e.Text.Length == 1)
                 {
-                    if (ContentAssistTriggers.Contains(char.Parse(e.Text)))
-                    {
-                        ResetAssistListBoxLocation();
-                        IsAssistKeyPressed = true;
-                        FilterAssistBoxItemsSource();
-                        return;
-                    }
+                    
+                        typedBag += e.Text;
+                    
+                        if (ContentAssistTriggers.Select(x=>x.trigger).Contains(typedBag))
+                        {
+                            ResetAssistListBoxLocation();
+                            IsAssistKeyPressed = true;
+                            FilterAssistBoxItemsSource();
+                            return;
+                        }
+                        
+                    
                 }
 
                 if (IsAssistKeyPressed)
@@ -306,7 +303,6 @@ namespace StoryBoard.Controls
                     sbLastWords.Append(e.Text);
                     FilterAssistBoxItemsSource();
                 }
-            }
 
         }
 

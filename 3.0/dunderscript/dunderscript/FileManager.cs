@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace dunderscript
 {
-   public class Lib { }
 
-   public class ObjectLibrary 
+    public class FileManager
     {
         public readonly ICollection<scriptFile> _ScriptFiles = new ObservableCollection<scriptFile>();
 
-        public ICollection<scriptFile> ScriptFiles 
+        public ICollection<scriptFile> ScriptFiles
         {
             get
             {
@@ -22,31 +21,26 @@ namespace dunderscript
             }
         }
 
-        public void LoadFiles()
+        public void LoadFiles(string dir, List<string> ext)
         {
             //open directory
             //search files with extensions
-            var dir = System.AppDomain.CurrentDomain.BaseDirectory;
-            var ext = new List<string> { ".dnd", ".js" };
             var myFiles = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories)
                 .Where(s => ext.Any(e => s.EndsWith(e)));
             foreach (var file in myFiles)
             {
+                // Open the file to read from.
+                string data = File.ReadAllText(file);
+
                 var name = file.Remove(0, file.LastIndexOf('\\') + 1);
-                _ScriptFiles.Add(new scriptFile(file, name));
+                
+                _ScriptFiles.Add(new scriptFile(file, name,data));
             }
         }
-
-        public ObjectLibrary()
-        {  
-            
-
-            
-        }
-
-         
+        
     }
-   public class scriptFile
+
+    public class scriptFile
     {
         string _name;
         public string name { get { return _name; } set { _name = value; } }
@@ -54,10 +48,16 @@ namespace dunderscript
         string _path;
         public string path { get { return _path; } set { _path = value; } }
 
-        public scriptFile(string path,string name)
+        string _data;
+        public string data { get { return _data; } set { _data = value; } }
+
+
+        public scriptFile(string path, string name, string data)
         {
             this._name = name;
             this._path = path;
+            this._data= data;
         }
+
     }
 }
