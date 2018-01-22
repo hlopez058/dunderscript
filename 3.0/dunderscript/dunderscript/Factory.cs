@@ -49,9 +49,6 @@ namespace dunderscript
             var ctab = tabDocuments.Items.GetItemAt(tabFocusIndex);
             tabDocuments.SelectedItem = ctab;
         }
-
-
-
         
     }
 

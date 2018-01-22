@@ -25,8 +25,11 @@ namespace dunderscript
         {
             //open directory
             //search files with extensions
+            if (!Directory.Exists(dir)) { throw new FileNotFoundException(); }
+
             var myFiles = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories)
                 .Where(s => ext.Any(e => s.EndsWith(e)));
+
             foreach (var file in myFiles)
             {
                 // Open the file to read from.
